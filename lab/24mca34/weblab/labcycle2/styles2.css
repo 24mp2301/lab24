@@ -1,0 +1,35 @@
+
+p {
+  font-family: Arial, sans-serif;
+  color: green;
+  background-color: lightyellow;
+  padding: 10px;
+}
+
+
+.class-selector {
+  color: white;
+  background-color: navy;
+  padding: 10px;
+}
+
+
+#id-selector {
+  color: black;
+  background-color: lightblue;
+  padding: 10px;
+  font-weight: bold;
+}
+
+
+.group-selector {
+  color: white;
+  background-color: darkred;
+  padding: 10px;
+}
+
+.container p {
+  color: darkblue;
+  background-color: lightgray;
+  padding: 10px;
+}
