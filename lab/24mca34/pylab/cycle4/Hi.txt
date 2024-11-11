@@ -88,3 +88,49 @@ def calculator():
 calculator()
 
 ------------------------------------
+3)
+
+
+
+def is_prime(num):
+    if num <= 1:
+        return False
+    for i in range(2, int(num ** 0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+
+def nth_prime(n):
+    count = 0
+    num = 2  
+    while count < n:
+        if is_prime(num):
+            count += 1
+        num += 1
+    return num - 1
+
+n = int(input("Enter the value of n: "))
+print(f"The {n}th prime number is: {nth_prime(n)}")
+
+
+4)
+
+area_of_square = lambda side: side * side
+
+
+area_of_rectangle = lambda length, width: length * width
+
+
+area_of_triangle = lambda base, height: 0.5 * base * height
+
+
+side = 5
+length = 10
+width = 4
+base = 6
+height = 3
+
+print(f"Area of square: {area_of_square(side)}")
+print(f"Area of rectangle: {area_of_rectangle(length, width)}")
+print(f"Area of triangle: {area_of_triangle(base, height)}")
