@@ -1,24 +1,90 @@
 
+------------------------------------
 1)
 
 def fibonacci(n):
-    # Base case: if n is 0 or 1, return n
     if n <= 1:
         return n
-    # Recursive case: sum the previous two numbers in the series
+    
     else:
         return fibonacci(n-1) + fibonacci(n-2)
 
-# Function to print the Fibonacci series up to n terms
 def print_fibonacci_series(n):
     for i in range(n):
         print(fibonacci(i), end=" ")
 
-# Example usage
-n = 10  # Number of terms
+n = 10  
 print_fibonacci_series(n)
 
-
-
+------------------------------------
 2)
 
+
+def add(x, y):
+    return x + y
+
+
+def subtract(x, y):
+    return x - y
+
+
+def multiply(x, y):
+    return x * y
+
+
+def divide(x, y):
+    if y != 0:
+        return x / y
+    else:
+        return "Error! Division by zero."
+
+
+def modulus(x, y):
+    return x % y
+
+
+def calculator():
+    while True:
+    
+        print("\nSelect operation:")
+        print("1. Add")
+        print("2. Subtract")
+        print("3. Multiply")
+        print("4. Divide")
+        print("5. Modulus")
+        print("6. Exit")
+
+        
+        choice = input("Enter choice (1/2/3/4/5/6): ")
+
+        
+        if choice == '6':
+            print("Exiting the calculator. Goodbye!")
+            break
+
+   
+        try:
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+        except ValueError:
+            print("Invalid input! Please enter numeric values.")
+            continue
+
+         
+        if choice == '1':
+            print(f"{num1} + {num2} = {add(num1, num2)}")
+        elif choice == '2':
+            print(f"{num1} - {num2} = {subtract(num1, num2)}")
+        elif choice == '3':
+            print(f"{num1} * {num2} = {multiply(num1, num2)}")
+        elif choice == '4':
+            print(f"{num1} / {num2} = {divide(num1, num2)}")
+        elif choice == '5':
+            print(f"{num1} % {num2} = {modulus(num1, num2)}")
+        else:
+            print("Invalid input! Please select a valid operation.")
+
+
+calculator()
+
+------------------------------------
