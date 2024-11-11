@@ -1,1 +1,24 @@
 
+1)
+
+def fibonacci(n):
+    # Base case: if n is 0 or 1, return n
+    if n <= 1:
+        return n
+    # Recursive case: sum the previous two numbers in the series
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+# Function to print the Fibonacci series up to n terms
+def print_fibonacci_series(n):
+    for i in range(n):
+        print(fibonacci(i), end=" ")
+
+# Example usage
+n = 10  # Number of terms
+print_fibonacci_series(n)
+
+
+
+2)
+
