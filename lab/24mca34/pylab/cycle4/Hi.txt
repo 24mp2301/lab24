@@ -233,3 +233,29 @@ print("Multiples of 3:", multiples_of_3)
 
 10)
 
+def add_numbers(*args):
+    """
+    Adds variable-length integer arguments.
+
+    Parameters:
+    *args: A variable-length list of integers.
+
+    Returns:
+    int: The sum of the integers passed as arguments.
+
+    Example:
+    >>> add_numbers(1, 2, 3)
+    6
+
+    >>> add_numbers(10, -5, 20)
+    25
+    """
+    return sum(args)
+
+# Demo
+if __name__ == "__main__":
+    print("Sum of 1, 2, 3:", add_numbers(1, 2, 3))
+    print("Sum of 10, -5, 20:", add_numbers(10, -5, 20))
+    print("Sum of no numbers:", add_numbers())
+
+
