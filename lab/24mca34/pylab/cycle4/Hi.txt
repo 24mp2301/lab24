@@ -220,3 +220,16 @@ c_result = combinations(n, r)
 print(f"The number of permutations p({n}, {r}) is: {p_result}")
 print(f"The number of combinations c({n}, {r}) is: {c_result}")
 -----------------------------------
+9)
+# List of numbers
+numbers = list(range(1, 31))
+
+# Use filter with a lambda function to get multiples of 3
+multiples_of_3 = list(filter(lambda x: x % 3 == 0, numbers))
+
+# Display the result
+print("Multiples of 3:", multiples_of_3)
+
+
+10)
+
