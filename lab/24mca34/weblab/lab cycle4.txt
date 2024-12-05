@@ -1,0 +1,35 @@
+web lab cycle 5   -5-12-2024
+
+15_exp.php
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Information Form</title>
+</head>
+<body>
+    <form action="4_1.php" method="post">
+        ID: <input type="text" name="id"><br><br>
+        Name: <input type="text" name="name"><br><br>
+        Age: <input type="text" name="age"><br><br> <!-- Corrected 'edges' to 'age' -->
+        Class: <input type="text" name="class"><br><br>
+
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+</body>
+</html>
+
+
+4_1.php
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $age = $_POST['age']; // Ensure this matches the input field
+    $class = $_POST['class'];
+
+    echo "Name of student: $name <br> ID: $id <br> Age: $age <br> Class: $class";
+}
+?>
