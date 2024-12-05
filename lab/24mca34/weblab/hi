@@ -1,1 +1,2 @@
-.
+PHP web application to implement a login page and a welcome page.(Login details should be
+matched with those stored in a database table)
