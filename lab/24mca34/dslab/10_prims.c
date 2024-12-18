@@ -1,85 +1,66 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 10
-#define INF 999
+int a, b, u, v, n, i, j, ne = 1;
+int min, mincost = 0;
+int **cost, *visited;
 
-typedef struct Edge {
-    int vertex, weight;
-    struct Edge* next;
-} Edge;
+void main() {
+    printf("\nPRIMS ALGM");
+    printf("\nEnter the number of nodes: ");
+    scanf("%d", &n);
 
-Edge* adjList[MAX]; // Adjacency list
-int visited[MAX] = {0}, n; // Global visited array
-int mincost = 0;
+    // Dynamically allocate memory for the adjacency matrix and visited array
+    cost = (int **)malloc(n * sizeof(int *));
+    for (i = 0; i < n; i++) {
+        cost[i] = (int *)malloc(n * sizeof(int));
+    }
+    visited = (int *)malloc(n * sizeof(int));
 
-// Function to add an edge to the adjacency list
-void addEdge(int u, int v, int weight) {
-    Edge* newEdge = (Edge*)malloc(sizeof(Edge));
-    newEdge->vertex = v;
-    newEdge->weight = weight;
-    newEdge->next = adjList[u];
-    adjList[u] = newEdge;
-}
+    printf("\nEnter the adjacency matrix:\n");
+    for (i = 0; i < n; i++) {  // Start from 0
+        for (j = 0; j < n; j++) {  // Start from 0
+            scanf("%d", &cost[i][j]);
+            if (cost[i][j] == 0) {
+                cost[i][j] = 999; // Represent no edge with a large value
+            }
+        }
+    }
 
-// Function to find the minimum spanning tree using Prim's algorithm
-void prim() {
-    int ne = 1, u, v, min;
-    visited[1] = 1; // Start from the first vertex
+    // Initialize the visited array
+    for (i = 0; i < n; i++) {
+        visited[i] = 0;
+    }
 
+    visited[0] = 1; // Start from the first node (index 0)
     printf("\n");
 
     while (ne < n) {
-        min = INF;
-        u = -1;
-        v = -1;
-
-        // Find the edge with the minimum weight that connects a visited vertex to an unvisited vertex
-        for (int i = 1; i <= n; i++) {
-            if (visited[i]) {
-                Edge* temp = adjList[i];
-                while (temp) {
-                    if (!visited[temp->vertex] && temp->weight < min) {
-                        min = temp->weight;
-                        u = i;
-                        v = temp->vertex;
-                    }
-                    temp = temp->next;
+        for (i = 0, min = 999; i < n; i++) {  // Start from 0
+            for (j = 0; j < n; j++) {  // Start from 0
+                if (cost[i][j] < min && visited[i] != 0) {
+                    min = cost[i][j];
+                    a = u = i;
+                    b = v = j;
                 }
             }
         }
 
-        if (u != -1 && v != -1) {
-            printf("\nEdge %d: (%d %d) cost: %d", ne++, u, v, min);
+        if (visited[u] == 0 || visited[v] == 0) {
+            printf("\nEdge %d: (%d %d) cost: %d", ne++, a, b, min);
             mincost += min;
-            visited[v] = 1; // Mark the vertex as visited
+            visited[b] = 1;
         }
+
+        cost[a][b] = cost[b][a] = 999; // Mark the edge as used
     }
 
     printf("\n\nMinimum cost: %d\n", mincost);
+
+    // Free dynamically allocated memory
+    for (i = 0; i < n; i++) {
+        free(cost[i]);
+    }
+    free(cost);
+    free(visited);
 }
-
-int main() {
-    int edges, u, v, weight;
-
-    printf("\nEnter the number of nodes: ");
-    scanf("%d", &n);
-
-    printf("\nEnter the number of edges: ");
-    scanf("%d", &edges);
-
-    // Initialize adjacency list
-    for (int i = 0; i < MAX; i++) {
-        adjList[i] = NULL;
-    }
-
-    printf("\nEnter the edges (u, v, weight):\n");
-    for (int i = 0; i < edges; i++) {
-        scanf("%d %d %d", &u, &v, &weight);
-        addEdge(u, v, weight);
-        addEdge(v, u, weight); // Since the graph is undirected
-    }
-
-    prim(); // Call Prim's algorithm
-    return 0;
-}  
