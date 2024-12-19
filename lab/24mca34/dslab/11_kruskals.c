@@ -12,8 +12,8 @@ void main() {
     scanf("%d", &n);
 
     printf("\nEnter the cost adjacency matrix:\n");
-    for (i = 1; i <= n; i++) {
-        for (j = 1; j <= n; j++) {
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
             scanf("%d", &cost[i][j]);
             if (cost[i][j] == 0) {
                 cost[i][j] = 999; // Represent no edge with a large value
@@ -23,8 +23,8 @@ void main() {
 
     printf("The edges of the Minimum Cost Spanning Tree are:\n");
     while (ne < n) {
-        for (i = 1, min = 999; i <= n; i++) {
-            for (j = 1; j <= n; j++) {
+        for (i = 0, min = 999; i < n; i++) {
+            for (j = 0; j < n; j++) {
                 if (cost[i][j] < min) {
                     min = cost[i][j];
                     a = u = i;
@@ -48,7 +48,7 @@ void main() {
 }
 
 int find(int i) {
-    while (parent[i]) {
+    while (parent[i] != 0) {  // Find the parent of the node
         i = parent[i];
     }
     return i;
@@ -56,8 +56,8 @@ int find(int i) {
 
 int uni(int i, int j) {
     if (i != j) {
-        parent[j] = i;
+        parent[j] = i; // Union by linking
         return 1;
     }
     return 0;
-} 
+}
