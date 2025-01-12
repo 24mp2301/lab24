@@ -1,118 +1,105 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int *queue;
-int size;
-int front = -1, rear = -1;
+int *a; 
+int front = 0, rear = 0, n, count = 0; 
 
-void initializeQueue() {
-    queue = (int *)malloc(size * sizeof(int));
-}
+void display() {
+    int i;
 
-void enqueue(int element) {
-    if (front == (rear + 1) % size) {
-        printf("Queue is full\n");
+    if (count == 0) {
+        printf("\nQueue is empty\n");
         return;
     }
-    if (front == -1 && rear == -1) {
-        front = rear = 0;
-    } else {
-        rear = (rear + 1) % size;
-    }
-    queue[rear] = element;
-}
 
-int dequeue() {
-    int element;
-    if (front == -1 && rear == -1) {
-        printf("Queue is empty\n");
-        return -1;
+    printf("\nThe queue is:\n");
+    for (i = 0; i < count; i++) {
+        int index = (front + 1 + i) % n;
+        printf("%d ", a[index]);
     }
-    element = queue[front];
-    if (front == rear) {
-        front = rear = -1;
-    } else {
-        front = (front + 1) % size;
-    }
-    printf("%d dequeued from the queue\n", element);
-    return element;
-}
-
-int searchElement(int element) {
-    if (front == -1 && rear == -1) {
-        printf("Queue is empty\n");
-        return -1;
-    }
-    int current = front;
-    int position = 1;
-    do {
-        if (queue[current] == element) {
-            return position;
-        }
-        current = (current + 1) % size;
-        position++;
-    } while (current != (rear + 1) % size);
-    return -1;
-}
-
-void displayQueue() {
-    if (front == -1 && rear == -1) {
-        printf("Queue is empty\n");
-        return;
-    }
-    printf("Queue elements: ");
-    int current = front;
-    do {
-        printf("%d ", queue[current]);
-        current = (current + 1) % size;
-    } while (current != (rear + 1) % size);
     printf("\n");
 }
 
-int main() {
-    int choice, searchResult, element;
-    printf("Enter the size of the circular queue: ");
-    scanf("%d", &size);
-    initializeQueue();
-    do {
-        printf("\nCircular Queue Menu\n");
-        printf("1. Enqueue\n");
-        printf("2. Dequeue\n");
-        printf("3. Search Element\n");
-        printf("4. Display\n");
-        printf("5. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-        switch (choice) {
-            case 1:
-                printf("Enter the element to enqueue: ");
-                scanf("%d", &element);
-                enqueue(element);
-                break;
-            case 2:
-                dequeue();
-                break;
-            case 3:
-                printf("Enter the element to search: ");
-                scanf("%d", &element);
-                searchResult = searchElement(element);
-                if (searchResult != -1) {
-                    printf("%d found at position %d\n", element, searchResult);
-                } else {
-                    printf("%d not found in the queue\n", element);
-                }
-                break;
-            case 4:
-                displayQueue();
-                break;
-            case 5:
-                printf("Exiting the program.\n");
-                break;
-            default:
-                printf("Invalid choice. Please enter a valid option.\n");
-                break;
+void push() {
+    if (count == n) { 
+        printf("Queue overflow\n");
+    } else {
+        rear = (rear + 1) % n;
+        printf("\nEnter the element to push: ");
+        scanf("%d", &a[rear]);
+        count++; 
+        display();
+    }
+}
+
+void pop() {
+    if (count == 0) { 
+        printf("Queue underflow\n");
+    } else {
+        front = (front + 1) % n;
+        printf("\nPopped element %d from queue\n", a[front]);
+        count--;
+        display();
+    }
+}
+
+void search() {
+    int element, i, position = -1;
+
+    if (count == 0) {
+        printf("Queue is empty, nothing to search.\n");
+        return;
+    }
+
+    printf("\nEnter the element to search: ");
+    scanf("%d", &element);
+
+    for (i = 0; i < count; i++) {
+        int index = (front + 1 + i) % n;
+        if (a[index] == element) {
+            position = i + 1;
+            break;
         }
-    } while (choice != 5);
-    free(queue);
+    }
+
+    if (position != -1) {
+        printf("Element %d found at position %d from the front.\n", element, position);
+    } else {
+        printf("Element %d not found in the queue.\n", element);
+    }
+}
+
+int main() {
+    int choice;
+
+    printf("Enter the size of the circular queue: ");
+    scanf("%d", &n);
+    a = (int *)malloc(n * sizeof(int));
+    if (a == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    while (1) {
+        printf("1. Push\n2. Pop\n3. Display\n4. Search\n5. Exit\n");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: push();
+                    break;
+            case 2: pop();
+                    break;
+            case 3: display();
+                    break;
+            case 4: search();
+                    break;
+            case 5: 
+                free(a);
+                exit(0);
+            default: printf("Invalid choice\n");
+        }
+    }
+
     return 0;
 }
