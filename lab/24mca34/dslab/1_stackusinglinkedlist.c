@@ -92,29 +92,31 @@ void search()
 int main()
 {
 	int choice;
-	while(1)
+	do
 	{
 		printf("\n1. Push\n2. Pop\n3. Search\n4. Display\n5. Exit\nEnter your choice:");
-		scanf("%d",&choice);
+		scanf("%d", &choice);
 		switch(choice)
 		{
 			case(1):
-		  		push();
-		  		break;
+				push();
+				break;
 			case(2):
-		  		pop();
-		  		break;
+				pop();
+				break;
 			case(3):
-		  		search();
-		  		break;
+				search();
+				break;
 			case(4):
-		  		display();
-		  		break;
+				display();
+				break;
 			case(5):
-		  		exit(0);
+				printf("Exiting program.\n");
+				break;
 			default:
-		  		printf("Invalid choice!\n");
-	  	}
-	}
+				printf("Invalid choice!\n");
+		}
+	} while(choice != 5);
+
 	return 0;
 }
