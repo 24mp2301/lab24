@@ -1,0 +1,112 @@
+1. Add at least 10 rows into the Employee and Department tables:
+
+-- Insert into Department
+INSERT INTO Department (dept_no, dept_name) VALUES
+('D01', 'HR'),
+('D02', 'Finance'),
+('D03', 'Engineering'),
+('D04', 'Sales'),
+('D05', 'Marketing');
+
+-- Insert into Employee
+INSERT INTO Employee (emp_no, emp_name, dob, address, mobile_no, dept_no, salary, designation) VALUES
+('emp1', 'Alice', '1985-06-15', '123 Elm St', 1234567890, 'D01', 6000, 'Manager'),
+('emp2', 'Bob', '1990-08-10', '456 Oak St', 2345678901, 'D02', 8000, 'Developer'),
+('emp3', 'Charlie', '1988-03-22', '789 Pine St', 3456789012, 'D03', 4000, 'Engineer'),
+('emp4', 'David', '1992-11-30', '101 Maple St', 4567890123, 'D04', 5000, 'Salesperson'),
+('emp5', 'Eva', '1995-04-18', '202 Birch St', 5678901234, 'D01', 5500, 'HR Assistant'),
+('emp6', 'John', '1987-07-12', '303 Cedar St', 6789012345, 'D05', 10000, 'Marketing Manager'),
+('emp7', 'Sara', '1991-05-25', '404 Oak St', 7890123456, 'D02', 7000, 'Accountant'),
+('emp8', 'Tom', '1993-09-04', '505 Pine St', 8901234567, 'D03', 6000, 'Developer'),
+('emp9', 'Ursula', '1989-01-09', '606 Birch St', 9012345678, 'D04', 4500, 'Sales Manager'),
+('emp10', 'Victor', '1994-02-20', '707 Cedar St', 1023456789, 'D01', 9500, 'HR Manager');
+
+
+2. Display all the records from the above tables:
+
+SELECT * FROM Employee;
+SELECT * FROM Department;
+
+3. Display the emp_no and emp_name of employees from department no ‘D02’:
+
+SELECT emp_no, emp_name FROM Employee WHERE dept_no = 'D02';
+
+4. Display emp_no, emp_name, designation, dept_no, and salary of employees in the descending order of salary:
+
+SELECT emp_no, emp_name, designation, dept_no, salary 
+FROM Employee
+ORDER BY salary DESC;
+
+5. Display the emp_no, emp_name of employees whose salary is between 2000 and 5000:
+
+SELECT emp_no, emp_name FROM Employee WHERE salary BETWEEN 2000 AND 5000;
+
+6. Display the designations without duplicate values:
+
+SELECT DISTINCT designation FROM Employee;
+
+7. Change the salary of employees to 45000 whose designation is 'Manager':
+
+UPDATE Employee SET salary = 45000 WHERE designation = 'Manager';
+
+8. Change the mobile number of employees named John:
+
+UPDATE Employee SET mobile_no = 9876543210 WHERE emp_name = 'John';
+
+9. Delete all employees whose salary is equal to Rs. 7000:
+
+DELETE FROM Employee WHERE salary = 7000;
+
+10. Retrieve the name, mobile number of all employees whose name starts with “A”:
+
+SELECT emp_name, mobile_no FROM Employee WHERE emp_name LIKE 'A%';
+
+11. Display the details of the employee whose name has at least three characters and salary greater than 20000:
+
+SELECT * FROM Employee WHERE LENGTH(emp_name) >= 3 AND salary > 20000;
+
+12. Display the details of employees with empid ‘emp1’, ‘emp2’ and ‘emp6’:
+
+SELECT * FROM Employee WHERE emp_no IN ('emp1', 'emp2', 'emp6');
+
+13. Display employee name and employee id of those who have a salary between 120000 and 300000:
+
+SELECT emp_no, emp_name FROM Employee WHERE salary BETWEEN 120000 AND 300000;
+
+14. Display the details of employees whose designation is ‘Manager’ or ‘Computer Assistant’:
+
+SELECT * FROM Employee WHERE designation IN ('Manager', 'Computer Assistant');
+
+15. Display how many employees work for each department:
+
+SELECT dept_no, COUNT(*) AS employee_count FROM Employee GROUP BY dept_no;
+
+16. Display the average salary of employees in each department:
+
+SELECT dept_no, AVG(salary) AS average_salary FROM Employee GROUP BY dept_no;
+
+17. Display the total salary of employees in each department:
+
+SELECT dept_no, SUM(salary) AS total_salary FROM Employee GROUP BY dept_no;
+
+18. Display the top and lowest salary of employees in each department:
+
+SELECT dept_no, MAX(salary) AS top_salary, MIN(salary) AS lowest_salary
+FROM Employee
+GROUP BY dept_no;
+
+19. Display the average salary of employees in all departments except department with department number ‘D05’:
+
+SELECT dept_no, AVG(salary) AS average_salary 
+FROM Employee 
+WHERE dept_no != 'D05' 
+GROUP BY dept_no;
+
+20. Display the average salary of employees in all departments except department with department number ‘D01’ and average salary greater than 20000 in the ascending order of average salary:
+
+SELECT dept_no, AVG(salary) AS average_salary 
+FROM Employee 
+WHERE dept_no != 'D01' 
+GROUP BY dept_no
+HAVING AVG(salary) > 20000
+ORDER BY average_salary ASC;
